@@ -1,23 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import CVForm from './components/CVForm';
+import CVPreview from './components/CVPreview';
+import ExportButton from './components/ExportButton';
 
 function App() {
+  const [cvData, setCvData] = useState({
+    personalInfo: {
+      name: '',
+      email: '',
+      phone: '',
+      github: '',
+      linkedin: '',
+    },
+    experience: [
+      { company: '', role: '', duration: '', description: '' }
+    ],
+    education: [{ school: '', degree: '', year: '' }],
+    skills: ['']
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="max-w-5xl mx-auto py-8">
+      <h1 className="text-4xl font-bold text-center mb-8">CV Generator</h1>
+      <div className="flex justify-between space-x-4">
+        <CVForm cvData={cvData} setCvData={setCvData} />
+        <CVPreview cvData={cvData} />
+      </div>
+      <div className="text-center mt-8">
+        <ExportButton cvData={cvData} />
+      </div>
     </div>
   );
 }
